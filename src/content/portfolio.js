@@ -22,8 +22,8 @@ export const projects = [
     brief:
       "Make work easy to evaluate: give projects, experiments, and a CV their own space, with clear navigation and no filler.",
     approach:
-      "Static pages for projects and CV, with client-side interaction isolated to the generative experiment. Responsive layouts, keyboard navigation, and reduced-motion support.",
+      "Static pages for projects and CV, with small interactive components for the creative lab, project artwork, and appearance controls. Responsive layouts, keyboard navigation, and reduced-motion support.",
     result:
-      "A working portfolio with three dedicated routes, an interactive grid study, and a CV layout ready for personal details.",
+      "A working portfolio with three dedicated routes, three playable experiments, expressive project artwork, and a CV layout ready for personal details.",
   },
 ];

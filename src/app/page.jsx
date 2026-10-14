@@ -5,6 +5,9 @@ export default function Page() {
   return (
     <main id="main" className="page-shell">
       <div className="page-heading">
+        <span className="chapter-number" aria-hidden="true">
+          01
+        </span>
         <div>
           <p className="kicker">
             <span className="square" />

@@ -6,6 +6,9 @@ export default function Experiments() {
   return (
     <main id="main" className="page-shell">
       <div className="page-heading">
+        <span className="chapter-number" aria-hidden="true">
+          02
+        </span>
         <div>
           <p className="kicker">
             <span className="square" />

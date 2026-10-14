@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Navigation from "../components/navigation";
+import ThemeSwitch from "../components/theme-switch";
 import { profile } from "../content/portfolio";
 import "./globals.css";
 
@@ -14,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body id="top">
         <div className="scroll-progress" aria-hidden="true" />
         <a className="skip-link" href="#main">
           Skip to content
@@ -42,12 +43,32 @@ export default function RootLayout({ children }) {
               <small>{profile.role || "Portfolio"}</small>
             </span>
           </Link>
-          <Navigation />
+          <div className="header-actions">
+            <Navigation />
+            <ThemeSwitch />
+          </div>
         </header>
         {children}
         <footer className="site-footer">
-          <span>{profile.name} / Portfolio</span>
-          <span>Projects · Experiments · CV</span>
+          <div className="footer-signature">
+            <Link href="/">
+              Jonathan <em>Walther.</em>
+            </Link>
+            <a className="back-top" href="#top" aria-label="Back to top">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 20V4M5 11l7-7 7 7"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
+            </a>
+          </div>
+          <div className="footer-meta">
+            <span>Personal archive / Jonathan Walther</span>
+            <span>Projects · Experiments · CV</span>
+          </div>
         </footer>
       </body>
     </html>

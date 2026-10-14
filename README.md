@@ -6,6 +6,10 @@ A focused Next.js portfolio for job applications. Only three sections:
 - `/experiments` — a playable lab: a pointer-responsive magnetic field, a typography composer, and a generative grid study.
 - `/cv` — experience, education, skills, and an optional PDF download.
 
+## Appearance
+
+The Paper/Ink control switches the whole site between light and dark appearances and saves the choice locally. The CV uses a document cover on screen and a simpler layout when printed. Personal details remain editable in the shared content file.
+
 ## Motion
 
 Page entrances, animated navigation and hover states, and pointer-responsive artwork are built with CSS and small React components; no animation library is needed. The artwork has theme and pause controls. The grid experiment offers optional play/pause variations and stops its timer when you navigate away. System reduced-motion preferences disable decorative animation and automatic playback.

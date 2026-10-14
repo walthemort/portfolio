@@ -34,6 +34,9 @@ export default function CV() {
   return (
     <main id="main" className="page-shell cv-page">
       <div className="page-heading">
+        <span className="chapter-number" aria-hidden="true">
+          03
+        </span>
         <div>
           <p className="kicker">
             <span className="square" />
@@ -59,46 +62,65 @@ export default function CV() {
         <span>Experience & qualifications</span>
         <span>Curriculum vitae</span>
       </div>
-      <div className="resume">
-        <div className="resume-identity">
-          <div>
-            <h2>{profile.name}</h2>
-            {profile.role && <p className="resume-role">{profile.role}</p>}
+      <div className="cv-document">
+        <aside className="cv-cover" aria-label="CV document cover">
+          <span className="cv-cover-label">PERSONAL FILE / 03</span>
+          <div className="cv-monogram" aria-hidden="true">
+            J<span>W</span>
           </div>
-          <div className="resume-contact">
-            {profile.location && <span>{profile.location}</span>}
-            {profile.email && (
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            )}
-            {!profile.role && !profile.email && (
-              <span className="placeholder">
-                Name, role, and contact details pending.
-              </span>
-            )}
+          <div className="cv-cover-bottom">
+            <span>{profile.name}</span>
+            <span>Curriculum vitae</span>
+            <span className="cv-cover-status">
+              {profile.cvUrl ||
+              profile.experience.length ||
+              profile.education.length
+                ? "Personal record"
+                : "Draft / details pending"}
+            </span>
           </div>
+        </aside>
+        <div className="resume">
+          <div className="resume-identity">
+            <div>
+              <h2>{profile.name}</h2>
+              {profile.role && <p className="resume-role">{profile.role}</p>}
+            </div>
+            <div className="resume-contact">
+              {profile.location && <span>{profile.location}</span>}
+              {profile.email && (
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              )}
+              {!profile.role && !profile.email && (
+                <span className="placeholder">
+                  Role and contact details pending.
+                </span>
+              )}
+            </div>
+          </div>
+          <ResumeSection
+            title="Experience"
+            entries={profile.experience}
+            type="experience"
+          />
+          <ResumeSection
+            title="Education"
+            entries={profile.education}
+            type="education"
+          />
+          <section className="resume-section">
+            <h2>Skills</h2>
+            {profile.skills.length ? (
+              <ul className="tags">
+                {profile.skills.map((skill) => (
+                  <li key={skill}>{skill}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="placeholder">Skills have not been added yet.</p>
+            )}
+          </section>
         </div>
-        <ResumeSection
-          title="Experience"
-          entries={profile.experience}
-          type="experience"
-        />
-        <ResumeSection
-          title="Education"
-          entries={profile.education}
-          type="education"
-        />
-        <section className="resume-section">
-          <h2>Skills</h2>
-          {profile.skills.length ? (
-            <ul className="tags">
-              {profile.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="placeholder">Skills have not been added yet.</p>
-          )}
-        </section>
       </div>
     </main>
   );
