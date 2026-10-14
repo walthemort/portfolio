@@ -1,11 +1,32 @@
+import Link from "next/link";
+import Image from "next/image";
 import PortfolioArtwork from "./portfolio-artwork";
 
 export default function ProjectList({ items }) {
   return (
     <div className="project-list">
       {items.map((project, index) => (
-        <article className="project" key={project.title}>
-          <PortfolioArtwork />
+        <article className="project" key={project.slug || project.title}>
+          {project.cover ? (
+            <Link
+              href={`/projects/${project.slug}`}
+              className="project-cover"
+              aria-label={`Read ${project.title} case study`}
+            >
+              <Image
+                src={project.cover.src}
+                alt={project.cover.alt}
+                width={project.cover.width}
+                height={project.cover.height}
+                sizes="(max-width: 650px) 100vw, 60vw"
+              />
+              <span className="project-cover-label" aria-hidden="true">
+                Explore the case study <span>↗</span>
+              </span>
+            </Link>
+          ) : (
+            <PortfolioArtwork />
+          )}
           <div className="project-copy">
             <div className="project-meta">
               <span>
@@ -13,7 +34,13 @@ export default function ProjectList({ items }) {
               </span>
               <span>{project.year}</span>
             </div>
-            <h2>{project.title}</h2>
+            <h2>
+              {project.slug ? (
+                <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+              ) : (
+                project.title
+              )}
+            </h2>
             <p className="project-description">{project.description}</p>
             <ul className="tags" aria-label="Technologies">
               {project.stack.map((tag) => (
@@ -21,27 +48,49 @@ export default function ProjectList({ items }) {
               ))}
             </ul>
             <div className="project-links">
-              <a
-                className="text-link"
-                href={project.source}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View source{" "}
-                <svg
-                  className="arrow-icon"
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
+              {project.slug && (
+                <Link
+                  className="case-study-link"
+                  href={`/projects/${project.slug}`}
                 >
-                  <path
-                    d="M5 19L19 5M5 5h14v14"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                </svg>
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
+                  Read case study{" "}
+                  <svg
+                    className="arrow-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4 12h16M13 5l7 7-7 7"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </Link>
+              )}
+              {project.source && (
+                <a
+                  className="text-link"
+                  href={project.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View source{" "}
+                  <svg
+                    className="arrow-icon"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M5 19L19 5M5 5h14v14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              )}
             </div>
             <details className="case-study">
               <summary>

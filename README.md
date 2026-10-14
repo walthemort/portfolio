@@ -9,9 +9,15 @@ A focused Next.js portfolio for job applications. Only three sections:
 
 ## Project selection
 
-Add projects to the `projects` array in `src/content/portfolio.js`. The first five appear on the homepage; `/projects` displays every entry in array order. With fewer than five, only the available projects are shown. The archive link is always available. No demo projects are added to fill empty slots.
+Add projects to the `projects` array in `src/content/portfolio.js`. Up to five selected projects appear on the homepage; `/projects` displays every entry in array order. Set `featured: false` to keep a project in the archive only; use `featuredOrder: 1`, `2`, and so on to control homepage order. Entries without a rank follow in array order. With fewer than five, only the available projects are shown. The archive link is always available. No demo projects are added to fill empty slots.
 
-The vector recreation of the supplied logo is in `public/logo-mark.svg` and `public/logo.svg`. The header, footer, and CV use these assets; the monochrome logo adapts to Paper and Ink appearances. Replace these assets with original vector exports if you need exact source geometry.
+The vector adaptation of the supplied metallic ribbon-and-orbit logo is in `public/logo-mark.svg` and `public/logo.svg`. The header, footer, and CV use these assets; the monochrome logo adapts to Paper and Ink appearances. Replace these assets with original vector exports if you need exact source geometry.
+
+## Project case studies
+
+Each project with a unique `slug` gets a page at `/projects/[slug]`. Add `cover` and `screenshots` entries using local image paths, meaningful alt text, width, height, and captions. The portfolio’s current screenshots are real browser captures, not mockups. Screenshots are versioned captures; recapture them after significant visual changes.
+
+Optional `focus`, `decisions` (`title` and `text`), and `demo` fields enrich the page. The existing `brief`, `approach`, and `result` fields provide its core narrative. Source and demo links appear only when supplied. Don’t invent outcomes or client work. Unknown project slugs return 404.
 
 ## Appearance
 

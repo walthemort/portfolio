@@ -3,8 +3,8 @@ export default function BrandLogo({ wordmark = false }) {
     <img
       className={`brand-logo${wordmark ? " brand-wordmark" : ""}`}
       src={wordmark ? "/logo.svg" : "/logo-mark.svg"}
-      width="1090"
-      height={wordmark ? 350 : 260}
+      width="850"
+      height={wordmark ? 610 : 525}
       alt=""
     />
   );
