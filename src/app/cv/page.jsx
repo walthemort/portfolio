@@ -1,3 +1,4 @@
+import BrandLogo from "../../components/brand-logo";
 import { profile } from "../../content/portfolio";
 
 export const metadata = { title: "CV" };
@@ -65,8 +66,8 @@ export default function CV() {
       <div className="cv-document">
         <aside className="cv-cover" aria-label="CV document cover">
           <span className="cv-cover-label">PERSONAL FILE / 03</span>
-          <div className="cv-monogram" aria-hidden="true">
-            J<span>W</span>
+          <div className="cv-brand" aria-hidden="true">
+            <BrandLogo />
           </div>
           <div className="cv-cover-bottom">
             <span>{profile.name}</span>

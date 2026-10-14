@@ -2,9 +2,16 @@
 
 A focused Next.js portfolio for job applications. Only three sections:
 
-- `/` — projects with source links and expandable project notes.
+- `/` — up to five selected projects, with a “View all projects” link.
+- `/projects` — the complete project archive, part of the Projects section.
 - `/experiments` — a playable lab: a pointer-responsive magnetic field, a typography composer, and a generative grid study.
 - `/cv` — experience, education, skills, and an optional PDF download.
+
+## Project selection
+
+Add projects to the `projects` array in `src/content/portfolio.js`. The first five appear on the homepage; `/projects` displays every entry in array order. With fewer than five, only the available projects are shown. The archive link is always available. No demo projects are added to fill empty slots.
+
+The vector recreation of the supplied logo is in `public/logo-mark.svg` and `public/logo.svg`. The header, footer, and CV use these assets; the monochrome logo adapts to Paper and Ink appearances. Replace these assets with original vector exports if you need exact source geometry.
 
 ## Appearance
 

@@ -17,7 +17,12 @@ export default function Navigation() {
         <Link
           key={href}
           href={href}
-          aria-current={pathname === href ? "page" : undefined}
+          aria-current={
+            pathname === href ||
+            (href === "/" && pathname.startsWith("/projects"))
+              ? "page"
+              : undefined
+          }
         >
           <span className="nav-number">{number}</span>
           {label}
