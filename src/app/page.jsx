@@ -1,16 +1,124 @@
-const projects = [
-  { title: 'Your first project', category: 'Web development', description: 'Describe what you built, the problem it solves, and your contribution.' },
-  { title: 'Your next idea', category: 'Design & development', description: 'Add another project here to show your approach and the skills you bring.' },
-];
+import { projects } from "../content/portfolio";
+
+function PortfolioArtwork() {
+  return (
+    <div className="project-art" aria-hidden="true">
+      <div className="art-label">
+        <span>PERSONAL ARCHIVE</span>
+        <span>VOL. 01 / 2026</span>
+      </div>
+      <div className="art-type">
+        Work<span>& play.</span>
+      </div>
+      <div className="art-orbit">
+        <span />
+      </div>
+      <div className="art-bottom">
+        <span>DESIGN × DEVELOPMENT</span>
+        <svg className="arrow-icon" viewBox="0 0 24 24">
+          <path
+            d="M5 19L19 5M5 5h14v14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
+        </svg>
+      </div>
+    </div>
+  );
+}
 
 export default function Page() {
-  return <>
-    <header><a className="logo" href="#home">Portfolio<span>.</span></a><nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav></header>
-    <main>
-      <section id="home" className="hero"><p className="eyebrow">Your name · Developer & creator</p><h1>Turning ideas into<br/><span>thoughtful experiences.</span></h1><p className="intro">Welcome to my portfolio. I build useful things for the web, with care for the details that make them feel great.</p><a className="button" href="#projects">Explore my work ↗</a></section>
-      <section id="projects"><div className="section-heading"><h2>Selected work</h2><span>01 — Projects</span></div><div className="projects">{projects.map((project, i) => <article key={project.title}><div className="project-art" aria-hidden="true"><span>0{i + 1}</span></div><p className="eyebrow">{project.category}</p><h3>{project.title}</h3><p>{project.description}</p></article>)}</div></section>
-      <section id="about" className="about"><p className="eyebrow">02 — About</p><h2>Curious by nature.<br/>Intentional by design.</h2><p>Use this space to tell your story: what you enjoy building, what you are learning, and what you would like to work on next.</p><ul className="skills"><li>React</li><li>JavaScript</li><li>CSS</li><li>Creative thinking</li></ul></section>
-      <section id="contact" className="contact"><p className="eyebrow">03 — Contact</p><h2>Let’s build something.</h2><p>Add your contact details and social links here when you are ready to share your work.</p></section>
-    </main><footer>© {new Date().getFullYear()} Your name</footer>
-  </>;
+  return (
+    <main id="main" className="page-shell">
+      <div className="page-heading">
+        <div>
+          <p className="kicker">
+            <span className="square" />
+            01 / Selected work
+          </p>
+          <h1>
+            Projects<span className="title-dot">.</span>
+          </h1>
+        </div>
+        <p className="heading-note">
+          A closer look at the work.
+          <br />
+          The decisions, the details, the result.
+        </p>
+      </div>
+      <div className="section-rule">
+        <span>Project index</span>
+        <span>
+          {String(projects.length).padStart(2, "0")} project
+          {projects.length === 1 ? "" : "s"}
+        </span>
+      </div>
+      <div className="project-list">
+        {projects.map((project, index) => (
+          <article className="project" key={project.title}>
+            <PortfolioArtwork />
+            <div className="project-copy">
+              <div className="project-meta">
+                <span>
+                  {String(index + 1).padStart(2, "0")} / {project.category}
+                </span>
+                <span>{project.year}</span>
+              </div>
+              <h2>{project.title}</h2>
+              <p className="project-description">{project.description}</p>
+              <ul className="tags" aria-label="Technologies">
+                {project.stack.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+              <div className="project-links">
+                <a
+                  className="text-link"
+                  href={project.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View source{" "}
+                  <svg
+                    className="arrow-icon"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M5 19L19 5M5 5h14v14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </div>
+              <details className="case-study">
+                <summary>
+                  Project notes{" "}
+                  <span className="details-plus" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div className="case-study-content">
+                  {[
+                    ["The brief", project.brief],
+                    ["The approach", project.approach],
+                    ["The result", project.result],
+                  ].map(([label, value]) => (
+                    <div key={label}>
+                      <h3>{label}</h3>
+                      <p>{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            </div>
+          </article>
+        ))}
+      </div>
+    </main>
+  );
 }
