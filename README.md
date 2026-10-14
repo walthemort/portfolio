@@ -3,7 +3,7 @@
 A focused Next.js portfolio for job applications. Only three sections:
 
 - `/` — projects with source links and expandable project notes.
-- `/experiments` — a working generative grid study with density, palette, and variation controls.
+- `/experiments` — a playable lab: a pointer-responsive magnetic field, a typography composer, and a generative grid study.
 - `/cv` — experience, education, skills, and an optional PDF download.
 
 ## Motion
@@ -16,7 +16,7 @@ Edit `src/content/portfolio.js` for your name, role, contact details, projects, 
 
 For a downloadable CV, add your real PDF at `public/cv.pdf` and set `profile.cvUrl` to `/cv.pdf`. The download link appears only when configured. A custom `cvUrl` should point to an existing file. Do not send the portfolio with placeholder personal details.
 
-Page layouts live in `src/app/`; styling is in `src/app/globals.css`. The interactive study lives in `src/components/grid-study.jsx`.
+Page layouts live in `src/app/`; styling is in `src/app/globals.css`. The lab lives in `src/components/experiment-lab.jsx`; the original grid study is in `src/components/grid-study.jsx`.
 
 ## Development
 
