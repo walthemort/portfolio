@@ -1,32 +1,5 @@
+import PortfolioArtwork from "../components/portfolio-artwork";
 import { projects } from "../content/portfolio";
-
-function PortfolioArtwork() {
-  return (
-    <div className="project-art" aria-hidden="true">
-      <div className="art-label">
-        <span>PERSONAL ARCHIVE</span>
-        <span>VOL. 01 / 2026</span>
-      </div>
-      <div className="art-type">
-        Work<span>& play.</span>
-      </div>
-      <div className="art-orbit">
-        <span />
-      </div>
-      <div className="art-bottom">
-        <span>DESIGN × DEVELOPMENT</span>
-        <svg className="arrow-icon" viewBox="0 0 24 24">
-          <path
-            d="M5 19L19 5M5 5h14v14"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
 
 export default function Page() {
   return (

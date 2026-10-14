@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const palettes = {
   orange: ["#fa5b35", "#fbc0a8"],
@@ -12,14 +12,38 @@ export default function GridStudy() {
   const [seed, setSeed] = useState(1);
   const [density, setDensity] = useState(65);
   const [palette, setPalette] = useState("orange");
+  const [playing, setPlaying] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    function sync() {
+      setReducedMotion(preference.matches);
+      if (preference.matches) setPlaying(false);
+    }
+    sync();
+    preference.addEventListener("change", sync);
+    return () => preference.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!playing || reducedMotion) return;
+    const timer = setInterval(() => {
+      if (!document.hidden) setSeed((s) => s + 1);
+    }, 1600);
+    return () => clearInterval(timer);
+  }, [playing, reducedMotion]);
+
   const colors = palettes[palette];
   return (
-    <div className="study">
+    <div className="study" data-playing={playing}>
       <div
         className="study-canvas"
         role="img"
         aria-label={`Generative grid in ${palette}, density ${density} percent, variation ${seed}`}
       >
+        <div className="canvas-cross canvas-cross-tl" aria-hidden="true" />
+        <div className="canvas-cross canvas-cross-br" aria-hidden="true" />
         <div className="study-grid" aria-hidden="true">
           {Array.from({ length: 112 }, (_, i) => {
             const value = ((i + 1) * 7919 + seed * 104729) % 997;
@@ -27,6 +51,7 @@ export default function GridStudy() {
               <span
                 key={i}
                 style={{
+                  "--cell-delay": `${(i % 14) * 12}ms`,
                   backgroundColor:
                     value % 100 < density ? colors[value % 2] : "transparent",
                   borderRadius: value % 3 === 0 ? "50%" : "0",
@@ -67,13 +92,36 @@ export default function GridStudy() {
             />
           ))}
         </fieldset>
-        <button
-          className="regenerate"
-          type="button"
-          onClick={() => setSeed((s) => s + 1)}
-        >
-          New variation <span aria-hidden="true">↻</span>
-        </button>
+        <div className="study-actions">
+          {!reducedMotion && (
+            <button
+              className="play-study"
+              type="button"
+              aria-pressed={playing}
+              onClick={() => setPlaying((p) => !p)}
+            >
+              {playing ? "Pause motion" : "Play motion"}
+              <svg aria-hidden="true" viewBox="0 0 20 20">
+                {playing ? (
+                  <path
+                    d="M7 4v12M13 4v12"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                ) : (
+                  <path d="M6 4l10 6-10 6z" fill="currentColor" />
+                )}
+              </svg>
+            </button>
+          )}
+          <button
+            className="regenerate"
+            type="button"
+            onClick={() => setSeed((s) => s + 1)}
+          >
+            New variation <span aria-hidden="true">↻</span>
+          </button>
+        </div>
       </div>
     </div>
   );

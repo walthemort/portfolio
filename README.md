@@ -6,6 +6,10 @@ A focused Next.js portfolio for job applications. Only three sections:
 - `/experiments` — a working generative grid study with density, palette, and variation controls.
 - `/cv` — experience, education, skills, and an optional PDF download.
 
+## Motion
+
+Page entrances, animated navigation and hover states, and pointer-responsive artwork are built with CSS and small React components; no animation library is needed. The artwork has theme and pause controls. The grid experiment offers optional play/pause variations and stops its timer when you navigate away. System reduced-motion preferences disable decorative animation and automatic playback.
+
 ## Add your real content
 
 Edit `src/content/portfolio.js` for your name, role, contact details, projects, experience, education, and skills. The current project is this portfolio itself; no client work, qualifications, or employment history is invented. The CV is clearly marked as a draft until you add your details.

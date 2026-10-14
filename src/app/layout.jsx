@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <div className="scroll-progress" aria-hidden="true" />
         <a className="skip-link" href="#main">
           Skip to content
         </a>
