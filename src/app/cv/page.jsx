@@ -1,4 +1,5 @@
 import { routeMetadata } from "../../lib/site";
+import Link from "next/link";
 import ContactLinks from "../../components/contact-links";
 import { profile } from "../../content/portfolio";
 
@@ -68,6 +69,23 @@ export default function CV() {
         <span>Experience & qualifications</span>
         <span>Curriculum vitae</span>
       </div>
+      <details className="cv-evidence-map">
+        <summary>
+          Follow the evidence <span aria-hidden="true">↗</span>
+        </summary>
+        <p>
+          Explore the actual portfolio implementation and its disclosed
+          contributions while career details are being prepared.
+        </p>
+        <div>
+          <Link href="/projects/portfolio#architecture">Architecture →</Link>
+          <Link href="/projects/portfolio#contribution">Contribution →</Link>
+          <Link href="/experiments/studio?study=72">
+            Evidence constellation →
+          </Link>
+          <Link href="/experiments/studio?study=75">Print edition →</Link>
+        </div>
+      </details>
       <div className="cv-document">
         <aside className="cv-cover" aria-label="CV document cover">
           <span className="cv-cover-label">PERSONAL FILE / 03</span>

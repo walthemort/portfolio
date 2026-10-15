@@ -8,6 +8,7 @@ export default function sitemap() {
     "/",
     "/projects",
     "/experiments",
+    "/experiments/studio",
     "/cv",
     ...projects.map((p) => `/projects/${p.slug}`),
     ...EXPERIMENTS.map((e) => `/experiments/${e.id}`),

@@ -87,6 +87,11 @@ export const projects = [
     updates: [
       {
         date: "2026-10-15",
+        title: "100-idea studio",
+        text: "Added 100 interactive visual interpretations, a searchable study catalog, saved compositions, artwork exports, and explicitly local collaboration prototypes.",
+      },
+      {
+        date: "2026-10-15",
         title: "Portfolio expansion",
         text: "Added project discovery, case-study tools, and an expanded creative lab.",
       },
@@ -161,6 +166,6 @@ export const projects = [
     approach:
       "Static pages for projects and CV, with small interactive components for the creative lab, project artwork, and appearance controls. Responsive layouts, keyboard navigation, and reduced-motion support.",
     result:
-      "A working portfolio with a selected-project homepage, a complete archive, individual case studies, seven playable experiments, and a CV layout ready for personal details.",
+      "A working portfolio with a selected-project homepage, a complete archive, individual case studies, seven creative tools, a 100-study experimental studio, and a CV layout ready for personal details.",
   },
 ];

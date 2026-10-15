@@ -39,3 +39,9 @@ Related-project links and previous/next navigation appear once additional real p
 The catalog and validated state schemas live in `src/lib/experiments.js`; scenes are in `src/components/experiment-scene.jsx`, with controls/history/sharing/exports in `experiment-workbench.jsx`. Presets are centralized with the catalog. Removing a study from the catalog removes its generated route and selector.
 
 Compositions are encoded in the URL. Malformed values are validated and bounded. Large drawings above the share-link limit show a notice and can still be exported. SVG/PNG files contain the current composition; user artwork is not sent to an external service.
+
+## 100-idea studio
+
+The separate `/experiments/studio` route keeps the original seven tools available. Its catalog is `src/lib/studio.js`; the visual interpretations are SVG scenes in `src/components/studio-scene.jsx`, with browser interactions in `creative-studio.jsx`. IDs 1–100 are stable and power `?study=72` links. Use `?composition=` to restore validated, complete visual state. See [studio notes](studio.md) for prototype boundaries.
+
+Compositions, favorite studies, and the project shortlist are saved to this browser under `jw-creative-studio-v1`. They are not uploaded or synchronized. Clear this key to delete these saved items. Sound is enabled only by an explicit button and is not persisted. The print study includes a clean evidence sheet; it does not invent a finished CV or replace the optional supplied CV PDF.

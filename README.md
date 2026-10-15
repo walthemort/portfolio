@@ -6,6 +6,7 @@ A Next.js portfolio with Projects, Experiments, and CV. The identity is live typ
 - `/projects`: searchable archive with discipline/technology filters, sorting, and grid/list views. Filters are shareable through the URL.
 - `/projects/[slug]`: case studies with screenshot lightboxes, contribution/evidence, timelines, decisions, architecture, comparisons, captioned video, lessons, contents navigation, and section links.
 - `/experiments`: seven studies. Each has its own `/experiments/[slug]` URL, presets, bounded undo/redo, composition links, and SVG/PNG exports.
+- `/experiments/studio`: 100 interactive interpretations in ten collections, with a searchable catalog, per-study saved compositions, favorites, history, sharing, and SVG/PNG exports. Collaboration studies are explicitly local to one device. See the [studio implementation notes](docs/studio.md).
 - `/cv`: experience, education, skills, contact links, and an optional supplied CV PDF.
 
 The only real project supplied so far is this portfolio. Career details, a CV PDF, other projects, email/LinkedIn, target role, live-demo URLs, and the production domain/hosting are still awaiting input. No employment, qualifications, project metrics, or client work have been invented. See the [50-item implementation status](docs/roadmap.md).

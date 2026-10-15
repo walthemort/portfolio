@@ -1,3 +1,4 @@
+import StudioInvitation from "../components/studio-invitation";
 import Link from "next/link";
 import ProjectList from "../components/project-list";
 import { getHomepageProjects } from "../lib/projects";
@@ -54,6 +55,7 @@ export default function Page() {
           </svg>
         </Link>
       </div>
+      <StudioInvitation />
     </main>
   );
 }

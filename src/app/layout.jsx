@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionSculpture from "../components/section-sculpture";
 import Navigation from "../components/navigation";
 import ContactLinks from "../components/contact-links";
 import MotionPreference from "../components/motion-preference";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }) {
             <ThemeSwitch />
           </div>
         </header>
+        <SectionSculpture />
         {children}
         <footer className="site-footer">
           <div className="footer-signature">
@@ -78,7 +80,9 @@ export default function RootLayout({ children }) {
             <MotionPreference />
           </div>
           <div className="footer-meta">
-            <span>Personal archive / Jonathan Walther</span>
+            <Link href="/experiments/studio">
+              Visit the experimental studio ↗
+            </Link>
             <span>Projects · Experiments · CV</span>
           </div>
         </footer>

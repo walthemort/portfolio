@@ -1,9 +1,11 @@
 import { routeMetadata } from "../../lib/site";
+import StudioInvitation from "../../components/studio-invitation";
 import ExperimentLab from "../../components/experiment-lab";
 
 export const metadata = routeMetadata({
   title: "Experiments",
-  description: "Seven playable creative experiments.",
+  description:
+    "Seven creative tools and a studio of 100 interactive interpretations.",
   path: "/experiments",
 });
 
@@ -33,6 +35,7 @@ export default function Experiments() {
         <span>Interactive studies</span>
         <span>07 playable studies</span>
       </div>
+      <StudioInvitation />
       <ExperimentLab />
     </main>
   );
