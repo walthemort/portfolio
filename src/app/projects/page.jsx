@@ -1,15 +1,17 @@
+import { routeMetadata } from "../../lib/site";
 import Link from "next/link";
-import ProjectList from "../../components/project-list";
+import ProjectExplorer from "../../components/project-explorer";
 import { projects } from "../../content/portfolio";
 
-export const metadata = {
+export const metadata = routeMetadata({
   title: "All projects",
   description: "The complete project archive of Jonathan Walther.",
-};
+  path: "/projects",
+});
 
 export default function AllProjects() {
   return (
-    <main id="main" className="page-shell projects-archive">
+    <main tabIndex={-1} id="main" className="page-shell projects-archive">
       <div className="page-heading">
         <span className="chapter-number" aria-hidden="true">
           01
@@ -38,7 +40,7 @@ export default function AllProjects() {
           {projects.length === 1 ? "" : "s"}
         </span>
       </div>
-      <ProjectList items={projects} />
+      <ProjectExplorer projects={projects} />
       {projects.length === 0 && (
         <p className="archive-empty">
           New work will appear here as projects are added.

@@ -1,52 +1,98 @@
+import { routeMetadata, getSiteUrl, safeJsonLd } from "../../../lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "../../../content/portfolio";
-
-function ExternalArrow() {
-  return (
-    <svg className="arrow-icon" aria-hidden="true" viewBox="0 0 24 24">
-      <path
-        d="M5 19L19 5M5 5h14v14"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-    </svg>
-  );
-}
+import { readingMinutes, relatedProjects } from "../../../lib/projects";
+import {
+  SectionHeading,
+  ScreenshotGallery,
+  ImageComparison,
+} from "../../../components/case-tools";
 
 export const dynamicParams = false;
-
 export function generateStaticParams() {
-  return projects
-    .filter((project) => project.slug)
-    .map((project) => ({ slug: project.slug }));
+  return projects.filter((p) => p.slug).map((p) => ({ slug: p.slug }));
 }
-
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
-  if (!project) notFound();
-  return { title: project.title, description: project.description };
+  const p = projects.find((p) => p.slug === slug);
+  if (!p) notFound();
+  return routeMetadata({
+    title: p.title,
+    description: p.description,
+    path: `/projects/${p.slug}`,
+    social: p.slug,
+  });
 }
 
 export default async function ProjectDetail({ params }) {
   const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
+  const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
   const gallery = (project.screenshots || []).filter(
-    (image) => image.src !== project.cover?.src,
+    (i) => i.src !== project.cover?.src,
   );
+  const related = relatedProjects(projects, project);
+  const index = projects.findIndex((p) => p.slug === slug);
+  const previous = projects[index - 1];
+  const next = projects[index + 1];
+  const sections = [
+    ["problem", "The problem"],
+    ["approach", "The approach"],
+    ...(project.contribution ? [["contribution", "Contribution"]] : []),
+    ...(project.decisions?.length ? [["decisions", "Key decisions"]] : []),
+    ...(project.tradeoffs?.length
+      ? [["tradeoffs", "Tradeoffs & constraints"]]
+      : []),
+    ...(project.architecture?.length ? [["architecture", "Architecture"]] : []),
+    ...(gallery.length ? [["screenshots", "Screenshots"]] : []),
+    ...(project.comparison ? [["comparison", "Before & after"]] : []),
+    ...(project.video ? [["demo", "Demo video"]] : []),
+    ...(project.timeline?.length ? [["timeline", "Timeline"]] : []),
+    ["result", "The result"],
+    ...(project.lessons?.length ? [["lessons", "Lessons learned"]] : []),
+    ...(project.updates?.length ? [["updates", "Project updates"]] : []),
+  ];
+  function Section({ id, title, children }) {
+    return (
+      <section className="case-section" aria-labelledby={id}>
+        <SectionHeading id={id}>{title}</SectionHeading>
+        <div className="case-section-body">{children}</div>
+      </section>
+    );
+  }
   return (
-    <main id="main" className="page-shell project-detail">
+    <main tabIndex={-1} id="main" className="page-shell project-detail">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: safeJsonLd({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: project.title,
+            description: project.description,
+            creator: { "@type": "Person", name: "Jonathan Walther" },
+            keywords: project.stack,
+            ...(getSiteUrl()
+              ? {
+                  url: new URL(
+                    `/projects/${project.slug}`,
+                    getSiteUrl(),
+                  ).toString(),
+                }
+              : {}),
+            ...(project.source ? { codeRepository: project.source } : {}),
+          }),
+        }}
+      />
       <Link className="detail-back" href="/projects">
         ← All projects
       </Link>
       <div className="detail-heading">
         <p className="kicker">
           <span className="square" />
-          01 / Project case study
+          01 / Project case study · {readingMinutes(project)} min read
         </p>
         <h1>
           {project.title}
@@ -56,50 +102,48 @@ export default async function ProjectDetail({ params }) {
       </div>
       <div className="detail-overview">
         <dl>
-          <div>
-            <dt>Category</dt>
-            <dd>{project.category}</dd>
-          </div>
-          <div>
-            <dt>Year</dt>
-            <dd>{project.year}</dd>
-          </div>
-          {project.focus && (
-            <div>
-              <dt>Focus</dt>
-              <dd>{project.focus}</dd>
-            </div>
-          )}
-          <div>
-            <dt>Built with</dt>
-            <dd>{project.stack.join(" / ")}</dd>
-          </div>
+          {[
+            ["Category", project.category],
+            ["Year", project.year],
+            ["Status", project.status],
+            ["Focus", project.focus],
+            ["Built with", project.stack.join(" / ")],
+          ]
+            .filter(([, value]) => value)
+            .map(([label, value]) => (
+              <div key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
         </dl>
         <div className="detail-actions">
-          {project.source && (
-            <a
-              className="archive-button"
-              href={project.source}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View source <ExternalArrow />
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          )}
-          {project.demo && (
-            <a
-              className="archive-button"
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Live demo <ExternalArrow />
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          )}
+          {[
+            [project.source, "View source"],
+            [project.demo, "Live demo"],
+          ]
+            .filter(([url]) => url)
+            .map(([url, label]) => (
+              <a
+                key={label}
+                className="archive-button"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {label}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            ))}
         </div>
       </div>
+      <nav className="case-contents" aria-label="Case study contents">
+        {sections.map(([id, title]) => (
+          <a key={id} href={`#${id}`}>
+            {title}
+          </a>
+        ))}
+      </nav>
       {project.cover && (
         <figure className="case-hero">
           <div className="screenshot-chrome" aria-hidden="true">
@@ -113,103 +157,196 @@ export default async function ProjectDetail({ params }) {
             alt={project.cover.alt}
             width={project.cover.width}
             height={project.cover.height}
-            sizes="(max-width: 650px) 100vw, 90vw"
+            sizes="(max-width:650px) 100vw,90vw"
             priority
           />
           <figcaption>Selected interface / Desktop capture</figcaption>
         </figure>
       )}
       <div className="case-narrative">
-        {[
-          ["01", "The problem", project.brief],
-          ["02", "The approach", project.approach],
-        ].map(([number, title, text]) => (
-          <section className="case-section" key={title}>
-            <div>
-              <span className="case-number">{number}</span>
-              <h2>{title}</h2>
-            </div>
-            <p>{text}</p>
-          </section>
-        ))}
+        <Section id="problem" title="The problem">
+          <p>{project.brief}</p>
+        </Section>
+        <Section id="approach" title="The approach">
+          <p>{project.approach}</p>
+        </Section>
+        {project.contribution && (
+          <Section id="contribution" title="Contribution">
+            <p>{project.contribution}</p>
+            {project.collaborators?.length > 0 && (
+              <ul className="collaborators">
+                {project.collaborators.map((c) => (
+                  <li key={c.name}>
+                    <strong>{c.name}</strong>
+                    <p>{c.contribution}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Section>
+        )}
         {!!project.decisions?.length && (
-          <section className="case-section">
-            <div>
-              <span className="case-number">03</span>
-              <h2>Key decisions</h2>
-            </div>
+          <Section id="decisions" title="Key decisions">
             <div className="decision-list">
-              {project.decisions.map((decision) => (
-                <article key={decision.title}>
-                  <h3>{decision.title}</h3>
-                  <p>{decision.text}</p>
+              {project.decisions.map((d) => (
+                <article key={d.title}>
+                  <h3>{d.title}</h3>
+                  <p>{d.text}</p>
                 </article>
               ))}
             </div>
-          </section>
+          </Section>
+        )}
+        {!!project.tradeoffs?.length && (
+          <Section id="tradeoffs" title="Tradeoffs & constraints">
+            <ul className="case-bullets">
+              {project.tradeoffs.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </Section>
+        )}
+        {!!project.architecture?.length && (
+          <Section id="architecture" title="Architecture">
+            <ol
+              className="architecture-diagram"
+              aria-label="Project architecture"
+            >
+              {project.architecture.map((node) => (
+                <li key={node.title}>
+                  <strong>{node.title}</strong>
+                  <p>{node.text}</p>
+                </li>
+              ))}
+            </ol>
+          </Section>
         )}
         {gallery.length > 0 && (
           <section
             className="case-gallery-section"
-            aria-labelledby="gallery-heading"
+            aria-labelledby="screenshots"
           >
-            <div className="section-rule">
-              <span>Interface gallery</span>
-              <span>Desktop & mobile</span>
-            </div>
-            <h2 id="gallery-heading" className="sr-only">
-              Project screenshots
-            </h2>
-            <div className="case-gallery">
-              {gallery.map((image) => (
-                <figure
-                  className={
-                    image.height > image.width
-                      ? "mobile-capture"
-                      : "desktop-capture"
-                  }
-                  key={image.src}
-                >
-                  <a
-                    href={image.src}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${image.alt} Open full-size image in a new tab.`}
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      width={image.width}
-                      height={image.height}
-                      sizes="(max-width: 650px) 100vw, 65vw"
-                    />
-                  </a>
-                  <figcaption>{image.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
+            <SectionHeading id="screenshots">Screenshots</SectionHeading>
+            <ScreenshotGallery images={gallery} />
           </section>
         )}
-        <section className="case-section">
-          <div>
-            <span className="case-number">04</span>
-            <h2>The result</h2>
-          </div>
+        {project.comparison && (
+          <Section id="comparison" title="Before & after">
+            <p>
+              Two real iterations of the creative lab. Drag the divider to
+              compare.
+            </p>
+            <ImageComparison comparison={project.comparison} />
+          </Section>
+        )}
+        {project.video && (
+          <Section id="demo" title="Demo video">
+            <video
+              className="case-video"
+              controls
+              preload="metadata"
+              poster={project.video.poster}
+              aria-label={project.video.title}
+            >
+              <source src={project.video.src} type="video/webm" />
+              <track
+                kind="captions"
+                src={project.video.captions}
+                srcLang="en"
+                label="English"
+                default
+              />
+              Your browser does not support video playback.
+            </video>
+            <p>{project.video.title}</p>
+          </Section>
+        )}
+        {!!project.timeline?.length && (
+          <Section id="timeline" title="Timeline">
+            <ol className="project-timeline">
+              {project.timeline.map((t) => (
+                <li key={`${t.date}-${t.title}`}>
+                  <time dateTime={t.date}>{t.date}</time>
+                  <h3>{t.title}</h3>
+                  <p>{t.text}</p>
+                </li>
+              ))}
+            </ol>
+          </Section>
+        )}
+        <Section id="result" title="The result">
           <p>{project.result}</p>
-        </section>
+          {project.outcomes?.length > 0 && (
+            <ul className="case-bullets">
+              {project.outcomes.map((o) => (
+                <li key={o.text}>
+                  {o.text}
+                  {o.href && (
+                    <>
+                      {" "}
+                      <Link href={o.href}>{o.label || "See evidence"} →</Link>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </Section>
+        {!!project.lessons?.length && (
+          <Section id="lessons" title="Lessons learned">
+            <ul className="case-bullets">
+              {project.lessons.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+            {!!project.nextSteps?.length && (
+              <>
+                <h3>What comes next</h3>
+                <ul className="case-bullets">
+                  {project.nextSteps.map((t) => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </Section>
+        )}
+        {!!project.updates?.length && (
+          <Section id="updates" title="Project updates">
+            {project.updates.map((u) => (
+              <article key={`${u.date}-${u.title}`}>
+                <time dateTime={u.date}>{u.date}</time>
+                <h3>{u.title}</h3>
+                <p>{u.text}</p>
+              </article>
+            ))}
+          </Section>
+        )}
       </div>
+      {related.length > 0 && (
+        <section className="related-projects">
+          <h2>Related projects</h2>
+          {related.map((p) => (
+            <Link
+              className="archive-button"
+              href={`/projects/${p.slug}`}
+              key={p.slug}
+            >
+              {p.title}
+            </Link>
+          ))}
+        </section>
+      )}
+      <nav className="project-pagination" aria-label="More case studies">
+        {previous && (
+          <Link href={`/projects/${previous.slug}`}>← {previous.title}</Link>
+        )}
+        {next && <Link href={`/projects/${next.slug}`}>{next.title} →</Link>}
+      </nav>
       <div className="case-end">
         <p className="kicker">Back to the collection</p>
         <Link className="archive-button" href="/projects">
-          View all projects{" "}
-          <svg className="arrow-icon" aria-hidden="true" viewBox="0 0 24 24">
-            <path
-              d="M4 12h16M13 5l7 7-7 7"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-          </svg>
+          View all projects <span aria-hidden="true">→</span>
         </Link>
       </div>
     </main>

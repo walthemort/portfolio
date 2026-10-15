@@ -1,10 +1,15 @@
+import { routeMetadata } from "../../lib/site";
 import ExperimentLab from "../../components/experiment-lab";
 
-export const metadata = { title: "Experiments" };
+export const metadata = routeMetadata({
+  title: "Experiments",
+  description: "Seven playable creative experiments.",
+  path: "/experiments",
+});
 
 export default function Experiments() {
   return (
-    <main id="main" className="page-shell">
+    <main tabIndex={-1} id="main" className="page-shell">
       <div className="page-heading">
         <span className="chapter-number" aria-hidden="true">
           02
@@ -26,7 +31,7 @@ export default function Experiments() {
       </div>
       <div className="section-rule">
         <span>Interactive studies</span>
-        <span>03 playable studies</span>
+        <span>07 playable studies</span>
       </div>
       <ExperimentLab />
     </main>

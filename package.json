@@ -6,14 +6,24 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "node scripts/start.mjs",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:e2e": "playwright test",
+    "check:links": "node scripts/check-links.mjs",
+    "check:budgets": "node scripts/check-budgets.mjs",
+    "check": "npm test && npm run check:links && npm run build && npm run check:budgets",
+    "preview:package": "node scripts/package-preview.mjs"
   },
   "dependencies": {
+    "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "next": "16.4.0"
+    "react-dom": "19.3.0"
   },
   "engines": {
     "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.64.1"
   }
 }

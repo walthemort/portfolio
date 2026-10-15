@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "./motion-preference";
 
 export default function PortfolioArtwork() {
   const surface = useRef(null);
   const frame = useRef(null);
+  const reduced = useReducedMotion();
   const [dark, setDark] = useState(false);
   const [paused, setPaused] = useState(false);
 
@@ -20,6 +22,7 @@ export default function PortfolioArtwork() {
   function move(event) {
     if (
       paused ||
+      reduced ||
       !window.matchMedia(
         "(hover: hover) and (prefers-reduced-motion: no-preference)",
       ).matches
@@ -42,7 +45,7 @@ export default function PortfolioArtwork() {
         ref={surface}
         className="project-art"
         data-theme={dark ? "dark" : "orange"}
-        data-paused={paused}
+        data-paused={paused || reduced}
       >
         <div className="art-light" aria-hidden="true" />
         <div className="art-label" aria-hidden="true">

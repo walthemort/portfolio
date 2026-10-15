@@ -1,60 +1,59 @@
-# Portfolio
+# Jonathan Walther — Portfolio
 
-A focused Next.js portfolio for job applications. Only three sections:
+A Next.js portfolio with Projects, Experiments, and CV. The identity is live typography, without an illustrated logo.
 
-- `/` — up to five selected projects, with a “View all projects” link.
-- `/projects` — the complete project archive, part of the Projects section.
-- `/experiments` — a playable lab: a pointer-responsive magnetic field, a typography composer, and a generative grid study.
-- `/cv` — experience, education, skills, and an optional PDF download.
+- `/`: up to five selected projects.
+- `/projects`: searchable archive with discipline/technology filters, sorting, and grid/list views. Filters are shareable through the URL.
+- `/projects/[slug]`: case studies with screenshot lightboxes, contribution/evidence, timelines, decisions, architecture, comparisons, captioned video, lessons, contents navigation, and section links.
+- `/experiments`: seven studies. Each has its own `/experiments/[slug]` URL, presets, bounded undo/redo, composition links, and SVG/PNG exports.
+- `/cv`: experience, education, skills, contact links, and an optional supplied CV PDF.
 
-## Project selection
-
-Add projects to the `projects` array in `src/content/portfolio.js`. Up to five selected projects appear on the homepage; `/projects` displays every entry in array order. Set `featured: false` to keep a project in the archive only; use `featuredOrder: 1`, `2`, and so on to control homepage order. Entries without a rank follow in array order. With fewer than five, only the available projects are shown. The archive link is always available. No demo projects are added to fill empty slots.
-
-The identity uses “Jonathan Walther” as live text in the header, footer, and CV. The browser icon uses typographic initials. No illustrated logo assets are used.
-
-## Project case studies
-
-Each project with a unique `slug` gets a page at `/projects/[slug]`. Add `cover` and `screenshots` entries using local image paths, meaningful alt text, width, height, and captions. The portfolio’s current screenshots are real browser captures, not mockups. Screenshots are versioned captures; recapture them after significant visual changes.
-
-Optional `focus`, `decisions` (`title` and `text`), and `demo` fields enrich the page. The existing `brief`, `approach`, and `result` fields provide its core narrative. Source and demo links appear only when supplied. Don’t invent outcomes or client work. Unknown project slugs return 404.
-
-## Appearance
-
-The Paper/Ink control switches the whole site between light and dark appearances and saves the choice locally. The CV uses a document cover on screen and a simpler layout when printed. Personal details remain editable in the shared content file.
-
-## Motion
-
-Page entrances, animated navigation and hover states, and pointer-responsive artwork are built with CSS and small React components; no animation library is needed. The artwork has theme and pause controls. The grid experiment offers optional play/pause variations and stops its timer when you navigate away. System reduced-motion preferences disable decorative animation and automatic playback.
-
-## Add your real content
-
-Edit `src/content/portfolio.js` for your name, role, contact details, projects, experience, education, and skills. The current project is this portfolio itself; no client work, qualifications, or employment history is invented. The CV is clearly marked as a draft until you add your details.
-
-For a downloadable CV, add your real PDF at `public/cv.pdf` and set `profile.cvUrl` to `/cv.pdf`. The download link appears only when configured. A custom `cvUrl` should point to an existing file. Do not send the portfolio with placeholder personal details.
-
-Page layouts live in `src/app/`; styling is in `src/app/globals.css`. The lab lives in `src/components/experiment-lab.jsx`; the original grid study is in `src/components/grid-study.jsx`.
+The only real project supplied so far is this portfolio. Career details, a CV PDF, other projects, email/LinkedIn, target role, live-demo URLs, and the production domain/hosting are still awaiting input. No employment, qualifications, project metrics, or client work have been invented. See the [50-item implementation status](docs/roadmap.md).
 
 ## Development
 
-Use Node.js 22.12 or newer (validated with Node.js 24.19.0).
+Use Node.js 24 (Node.js 22.12+ is supported by the manifest).
 
 ```sh
 npm ci
 npm run dev -- --hostname 0.0.0.0 --port 3000
 ```
 
-## Production
+In the cloud environment use `npm --cache /workspace/.npm-cache ci` when the default cache is not writable. Each cloud task is isolated; use its existing checkout without creating an extra Git worktree unless requested.
+
+## Production and previews
 
 ```sh
 npm run build
 npm run start -- --hostname 0.0.0.0 --port 3000
 ```
 
-Build output is in `.next/`. No credentials or external services are required.
+The build produces Next.js standalone output. The start helper copies the required public/static assets into generated output and forwards process signals.
 
-In the Codex cloud environment, use `npm --cache /workspace/.npm-cache ci` if the default npm cache is not writable. Each cloud task has an isolated checkout; no extra Git worktree is needed.
+```sh
+npm run preview:package
+```
 
-## Proposed next work
+This creates `dist/portfolio-preview.tgz`. Extract it and run `HOSTNAME=0.0.0.0 PORT=3000 node server.js` with Node.js 24. The archive excludes `.env` files. Its independent startup, routes, image response, and media were verified locally.
 
-See [the 50-item roadmap](docs/roadmap.md) for prioritized proposals and content requirements. These are future improvements, not implemented features.
+The GitHub workflow runs the checks on pushes and pull requests, then uploads a runnable preview build. This prepares previews without publishing a website or selecting a hosting account. A hosted preview URL still requires a provider and its authorized configuration. See [deployment details](docs/deployment.md).
+
+## Verification
+
+```sh
+npm run check
+npm run test:e2e
+node scripts/check-links.mjs --external
+```
+
+`check` runs unit tests, local destination checks, the production build, and compressed client-code/image budgets. Browser tests cover the hiring journey, archive state, dialogs/focus, all studies, downloads, motion preferences, mobile layouts, and axe accessibility/contrast checks in both appearances. System Chromium is used when present; otherwise install the Playwright browser with `npx playwright install chromium`.
+
+External link requests are opt-in because remote availability can fluctuate. No API keys are required for the site.
+
+## Content and appearance
+
+Edit `src/content/portfolio.js`. See the [content guide](docs/content-guide.md) for required and optional fields. Set `featured: false` to keep a project only in the archive; `featuredOrder` controls homepage priority. The maximum remains five.
+
+Paper/Ink appearance and the manual Reduced/System motion setting persist locally. System reduced-motion preferences are honored. Experiment artwork exports run in the browser and require no upload service. Very large drawings can exceed the share-link length limit; image exports remain available. Undo history retains 40 states.
+
+Screenshots and the ten-second captioned demo are actual browser captures. The comparison intentionally shows two real versions of the lab. These are versioned captures, rather than automatically regenerated previews.

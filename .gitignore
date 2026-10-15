@@ -5,3 +5,7 @@ dist/
 .env
 .env.*
 *.log
+
+!.env.example
+playwright-report/
+test-results/

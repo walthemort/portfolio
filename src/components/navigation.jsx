@@ -19,7 +19,8 @@ export default function Navigation() {
           href={href}
           aria-current={
             pathname === href ||
-            (href === "/" && pathname.startsWith("/projects"))
+            (href === "/" && pathname.startsWith("/projects")) ||
+            (href === "/experiments" && pathname.startsWith("/experiments/"))
               ? "page"
               : undefined
           }

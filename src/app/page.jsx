@@ -6,7 +6,7 @@ import { projects } from "../content/portfolio";
 export default function Page() {
   const featuredProjects = getHomepageProjects(projects);
   return (
-    <main id="main" className="page-shell">
+    <main tabIndex={-1} id="main" className="page-shell">
       <div className="page-heading">
         <span className="chapter-number" aria-hidden="true">
           01

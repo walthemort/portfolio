@@ -1,6 +1,12 @@
+import { routeMetadata } from "../../lib/site";
+import ContactLinks from "../../components/contact-links";
 import { profile } from "../../content/portfolio";
 
-export const metadata = { title: "CV" };
+export const metadata = routeMetadata({
+  title: "CV",
+  description: "Experience, education, and skills of Jonathan Walther.",
+  path: "/cv",
+});
 
 function ResumeSection({ title, entries, type }) {
   return (
@@ -32,7 +38,7 @@ function ResumeSection({ title, entries, type }) {
 
 export default function CV() {
   return (
-    <main id="main" className="page-shell cv-page">
+    <main tabIndex={-1} id="main" className="page-shell cv-page">
       <div className="page-heading">
         <span className="chapter-number" aria-hidden="true">
           03
@@ -98,6 +104,7 @@ export default function CV() {
               )}
             </div>
           </div>
+          <ContactLinks />
           <ResumeSection
             title="Experience"
             entries={profile.experience}

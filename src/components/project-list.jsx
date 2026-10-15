@@ -32,7 +32,10 @@ export default function ProjectList({ items }) {
               <span>
                 {String(index + 1).padStart(2, "0")} / {project.category}
               </span>
-              <span>{project.year}</span>
+              <span>
+                {project.year}
+                {project.status ? ` / ${project.status}` : ""}
+              </span>
             </div>
             <h2>
               {project.slug ? (

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ProjectNotFound() {
   return (
-    <main id="main" className="page-shell">
+    <main tabIndex={-1} id="main" className="page-shell">
       <p className="kicker">Project archive / 404</p>
       <h1>
         Not found<span className="title-dot">.</span>
