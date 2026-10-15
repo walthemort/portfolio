@@ -11,7 +11,7 @@ A focused Next.js portfolio for job applications. Only three sections:
 
 Add projects to the `projects` array in `src/content/portfolio.js`. Up to five selected projects appear on the homepage; `/projects` displays every entry in array order. Set `featured: false` to keep a project in the archive only; use `featuredOrder: 1`, `2`, and so on to control homepage order. Entries without a rank follow in array order. With fewer than five, only the available projects are shown. The archive link is always available. No demo projects are added to fill empty slots.
 
-The vector adaptation of the supplied metallic ribbon-and-orbit logo is in `public/logo-mark.svg` and `public/logo.svg`. The header, footer, and CV use these assets; the monochrome logo adapts to Paper and Ink appearances. Replace these assets with original vector exports if you need exact source geometry.
+The identity uses “Jonathan Walther” as live text in the header, footer, and CV. The browser icon uses typographic initials. No illustrated logo assets are used.
 
 ## Project case studies
 
@@ -54,3 +54,7 @@ npm run start -- --hostname 0.0.0.0 --port 3000
 Build output is in `.next/`. No credentials or external services are required.
 
 In the Codex cloud environment, use `npm --cache /workspace/.npm-cache ci` if the default npm cache is not writable. Each cloud task has an isolated checkout; no extra Git worktree is needed.
+
+## Proposed next work
+
+See [the 50-item roadmap](docs/roadmap.md) for prioritized proposals and content requirements. These are future improvements, not implemented features.

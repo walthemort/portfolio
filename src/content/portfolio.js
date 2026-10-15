@@ -18,28 +18,28 @@ export const projects = [
     title: "Portfolio / 01",
     focus: "Interface design & development",
     cover: {
-      src: "/projects/portfolio-desktop.png",
-      alt: "Desktop view of Jonathan Walther’s portfolio with its project layout and new ribbon logo.",
+      src: "/projects/portfolio-desktop-type.png",
+      alt: "Desktop view of Jonathan Walther’s portfolio with typographic branding.",
       width: 1440,
       height: 1050,
     },
     screenshots: [
       {
-        src: "/projects/portfolio-desktop.png",
+        src: "/projects/portfolio-desktop-type.png",
         alt: "The portfolio homepage on desktop.",
         caption: "01 / Selected work — desktop layout",
         width: 1440,
         height: 1050,
       },
       {
-        src: "/projects/portfolio-lab.png",
+        src: "/projects/portfolio-lab-type.png",
         alt: "The creative lab with the magnetic particle field selected.",
         caption: "02 / Experiments — a playable creative lab",
         width: 1440,
         height: 1400,
       },
       {
-        src: "/projects/portfolio-mobile.png",
+        src: "/projects/portfolio-mobile-type.png",
         alt: "The portfolio homepage on a narrow mobile screen.",
         caption: "03 / Selected work — mobile layout",
         width: 390,

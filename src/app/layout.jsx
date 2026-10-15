@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Navigation from "../components/navigation";
-import BrandLogo from "../components/brand-logo";
 import ThemeSwitch from "../components/theme-switch";
 import { profile } from "../content/portfolio";
 import "./globals.css";
@@ -27,11 +26,7 @@ export default function RootLayout({ children }) {
             href="/"
             aria-label={`${profile.name} — projects`}
           >
-            <BrandLogo />
-            <span>
-              {profile.name}
-              <small>{profile.role || "Portfolio"}</small>
-            </span>
+            <span className="brand-name">{profile.name}</span>
           </Link>
           <div className="header-actions">
             <Navigation />
@@ -42,7 +37,7 @@ export default function RootLayout({ children }) {
         <footer className="site-footer">
           <div className="footer-signature">
             <Link href="/" aria-label="Jonathan Walther — projects">
-              <BrandLogo wordmark />
+              <span className="brand-name">{profile.name}</span>
             </Link>
             <a className="back-top" href="#top" aria-label="Back to top">
               <svg viewBox="0 0 24 24" aria-hidden="true">

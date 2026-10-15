@@ -1,16 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="240 315 850 525"><defs>
-<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#555653"/><stop offset=".3" stop-color="#161716"/><stop offset=".62" stop-color="#080908"/><stop offset=".82" stop-color="#6e6f69"/><stop offset="1" stop-color="#20211f"/></linearGradient>
-<linearGradient id="fold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#aaa9a2"/><stop offset=".2" stop-color="#42433f"/><stop offset=".6" stop-color="#10110f"/><stop offset="1" stop-color="#71716b"/></linearGradient>
-<linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1e8d8"/><stop offset=".5" stop-color="#dabda0"/><stop offset="1" stop-color="#64645e"/></linearGradient>
-<radialGradient id="sphere" cx=".33" cy=".25" r=".75"><stop stop-color="#fff8e8"/><stop offset=".35" stop-color="#99998e"/><stop offset=".72" stop-color="#222320"/><stop offset="1" stop-color="#0b0c0a"/></radialGradient>
-</defs>
-<ellipse cx="660" cy="610" rx="390" ry="168" transform="rotate(-22 660 610)" fill="none" stroke="url(#edge)" stroke-width="1.2"/>
-<path d="M287 658H360C370 658 374 666 379 681C397 713 425 731 456 729C495 726 513 680 513 621V422C513 399 524 382 544 373L609 338V584C609 650 590 705 558 738C516 777 459 795 406 783C347 776 304 735 287 658Z" fill="url(#metal)" stroke="#8b8b8025"/>
-<path d="M513 421V610C513 671 489 710 456 729C425 744 397 726 379 681C397 713 425 731 456 729C495 726 513 680 513 621V422Z" fill="url(#fold)"/>
-<path d="M514 405C526 483 600 503 609 568" fill="none" stroke="url(#edge)" stroke-width="2.2"/>
-<path d="M610 763V656C610 630 632 600 656 577L709 519C730 496 750 494 772 516L820 581L891 715L860 773H820L737 623C719 590 696 578 675 601Z" fill="url(#fold)" stroke="#8b8b8025"/>
-<path d="M737 623C715 578 688 578 661 608L610 763V656C610 630 632 600 656 577L709 519C730 496 750 494 772 516L820 581L891 715L860 773H820Z" fill="url(#metal)"/>
-<path d="M843 645L957 469C970 449 976 442 992 442H1040L891 715Z" fill="url(#metal)" stroke="#8b8b8025"/>
-<path d="M843 645L891 715M709 519L657 588" stroke="url(#edge)" stroke-width="1.5" fill="none"/>
-<circle cx="898" cy="405" r="14" fill="url(#sphere)" stroke="#8b817666"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><style>rect{fill:#f8f8f4}text{fill:#22221f}@media(prefers-color-scheme:dark){rect{fill:#191b18}text{fill:#f0f0e5}}</style><rect width="64" height="64" rx="12"/><text x="32" y="43" text-anchor="middle" font-family="Georgia,serif" font-size="32" letter-spacing="-3">JW</text></svg>
